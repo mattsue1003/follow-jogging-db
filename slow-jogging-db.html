@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>超慢跑影片搜尋收藏資料庫</title>
+    <link rel="stylesheet" href="slow-jogging-db.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-card art-card-main"></div>
+        <div class="art-card art-card-side"></div>
+        <div class="art-meter"></div>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">Slow Jogging Video Library</p>
+        <h1>超慢跑跟練影片資料庫</h1>
+        <p>整理慢跑、超慢跑、踏步等，可跟著畫面慢跑運動的 YouTube 影片。可搜尋、分類、加入最愛，並批次匯出 JSON 或匯入自訂資料。</p>
+      </div>
+      <div class="hero-stats" aria-label="資料庫統計">
+        <div><strong id="totalVideos">50</strong><span>部影片</span></div>
+        <div><strong id="totalChannels">20</strong><span>個頻道</span></div>
+        <div><strong id="favoriteCount">0</strong><span>個最愛</span></div>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <aside class="control-panel" aria-label="搜尋與批次工具">
+        <section class="panel-section">
+          <h2>搜尋分類</h2>
+          <label class="field-label">
+            關鍵字
+            <input id="searchInput" type="search" placeholder="頻道、標籤、徐棟英、180BPM..." />
+          </label>
+          <div class="filter-grid">
+            <label class="field-label">
+              地區
+              <select id="regionFilter"></select>
+            </label>
+            <label class="field-label">
+              類型
+              <select id="styleFilter"></select>
+            </label>
+            <label class="field-label">
+              熱度
+              <select id="heatFilter"></select>
+            </label>
+            <label class="field-label">
+              排序
+              <select id="sortSelect">
+                <option value="heat">高熱度優先</option>
+                <option value="duration">時間長到短</option>
+                <option value="channel">頻道名稱</option>
+                <option value="favorite">最愛優先</option>
+              </select>
+            </label>
+          </div>
+          <div class="tag-cloud" id="tagCloud" aria-label="標籤篩選"></div>
+          <button class="ghost-button" id="resetFiltersBtn" type="button">清除篩選</button>
+        </section>
+
+        <section class="panel-section">
+          <h2>批次工具</h2>
+          <p class="helper-text"><span id="selectedCount">0</span> 部已勾選。JSON 可備份自訂影片，也可搬到其他瀏覽器匯入。</p>
+          <div class="button-stack">
+            <button class="primary-button" id="exportJsonBtn" type="button">匯出 JSON</button>
+          </div>
+          <label class="upload-box">
+            <span>批次上傳 JSON</span>
+            <input id="importInput" type="file" accept="application/json,.json" />
+          </label>
+          <p class="status-line" id="statusLine" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="panel-section">
+          <h2>新增影片</h2>
+          <form class="add-video-form" id="addVideoForm">
+            <label class="field-label">
+              YouTube 連結
+              <input id="videoUrlInput" type="url" placeholder="https://youtu.be/..." required />
+            </label>
+            <label class="field-label">
+              影片標題
+              <input id="videoTitleInput" type="text" placeholder="例如：30分鐘原地慢跑" required />
+            </label>
+            <label class="field-label">
+              頻道
+              <input id="videoChannelInput" type="text" placeholder="頻道名稱" required />
+            </label>
+            <div class="filter-grid">
+              <label class="field-label">
+                地區
+                <select id="videoRegionInput">
+                  <option value="臺灣">臺灣</option>
+                  <option value="日本">日本</option>
+                  <option value="韓國">韓國</option>
+                  <option value="歐美">歐美</option>
+                  <option value="自訂">自訂</option>
+                </select>
+              </label>
+              <label class="field-label">
+                類型
+                <select id="videoStyleInput">
+                  <option value="原地跑">原地跑</option>
+                  <option value="節拍超慢跑">節拍超慢跑</option>
+                  <option value="室內走跑">室內走跑</option>
+                  <option value="踏步">踏步</option>
+                  <option value="低衝擊有氧">低衝擊有氧</option>
+                  <option value="自訂">自訂</option>
+                </select>
+              </label>
+              <label class="field-label">
+                時長
+                <input id="videoDurationInput" type="text" placeholder="30:00" />
+              </label>
+              <label class="field-label">
+                熱度
+                <select id="videoHeatInput">
+                  <option value="medium">中等</option>
+                  <option value="very-high">高熱度</option>
+                  <option value="high">熱門</option>
+                  <option value="low">小眾</option>
+                </select>
+              </label>
+            </div>
+            <label class="field-label">
+              標籤
+              <input id="videoTagsInput" type="text" placeholder="用逗號分隔，例如：中文, 30分鐘, 低衝擊" />
+            </label>
+            <label class="field-label">
+              備註
+              <input id="videoNoteInput" type="text" placeholder="這支影片適合什麼情境？" />
+            </label>
+            <button class="primary-button" type="submit">新增到資料庫</button>
+          </form>
+        </section>
+
+        <section class="panel-section">
+          <h2>快速視圖</h2>
+          <div class="view-tabs" id="viewTabs">
+            <button class="tab-button active" data-view="all" type="button">全部</button>
+            <button class="tab-button" data-view="favorites" type="button">最愛</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="library" aria-label="影片資料庫">
+        <div class="library-toolbar">
+          <div>
+            <p class="eyebrow">Library</p>
+            <h2 id="resultTitle">全部影片</h2>
+            <p id="resultCount">0 部符合</p>
+          </div>
+          <div class="toolbar-actions">
+          </div>
+        </div>
+        <div class="video-grid" id="videoGrid"></div>
+      </section>
+    </main>
+
+    <script src="slow-jogging-videos.js"></script>
+    <script src="slow-jogging-db.js"></script>
+  </body>
+</html>
