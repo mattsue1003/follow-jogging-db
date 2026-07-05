@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1080, initial-scale=1" />
+    <title>跟著慢跑影片資料庫 Facebook 圖</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: #eef4ef;
+        color: #14242a;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", sans-serif;
+      }
+
+      .canvas {
+        position: relative;
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: url("fb-follow-jogging-hero.png") center / cover no-repeat;
+      }
+
+      .canvas::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(10, 35, 38, 0.78) 0%, rgba(10, 35, 38, 0.52) 40%, rgba(10, 35, 38, 0.1) 76%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(7, 24, 27, 0.18) 100%);
+      }
+
+      .headline {
+        position: absolute;
+        left: 68px;
+        top: 438px;
+        z-index: 2;
+        width: 620px;
+        padding: 24px 30px 26px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 24px;
+        background: rgba(7, 31, 34, 0.5);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 24px 58px rgba(0, 0, 0, 0.22);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        min-height: 42px;
+        padding: 0 17px;
+        border-radius: 999px;
+        background: #ffd775;
+        color: #183a37;
+        font-size: 23px;
+        font-weight: 900;
+      }
+
+      h1 {
+        margin: 18px 0 0;
+        color: #fff;
+        font-size: 66px;
+        line-height: 1.06;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        margin: 18px 0 0;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 25px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+
+      .count {
+        position: absolute;
+        right: 66px;
+        top: 66px;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        width: 170px;
+        height: 170px;
+        border-radius: 50%;
+        background: #ffd775;
+        color: #183a37;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 950;
+        line-height: 1.18;
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22);
+      }
+
+      .feature-row {
+        position: absolute;
+        left: 68px;
+        right: 68px;
+        bottom: 72px;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .feature {
+        min-height: 142px;
+        padding: 24px 24px 22px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 18px 34px rgba(0, 0, 0, 0.12);
+      }
+
+      .feature strong {
+        display: block;
+        color: #0d6861;
+        font-size: 37px;
+        line-height: 1;
+      }
+
+      .feature span {
+        display: block;
+        margin-top: 15px;
+        color: #28434a;
+        font-size: 24px;
+        font-weight: 850;
+        line-height: 1.25;
+      }
+
+      .cta {
+        position: absolute;
+        left: 68px;
+        right: 68px;
+        bottom: 28px;
+        z-index: 2;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 21px;
+        font-weight: 900;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="canvas">
+      <section class="headline">
+        <div class="eyebrow">YouTube 跟練影片整理</div>
+        <h1>「跟著慢跑」影片資料庫</h1>
+        <p class="subtitle">慢跑、超慢跑、踏步等，可跟著畫面一起做的運動影片，一次整理好。</p>
+      </section>
+      <div class="count">60 部<br />影片</div>
+      <section class="feature-row">
+        <div class="feature"><strong>搜尋</strong><span>依地區、熱度、標籤快速找影片</span></div>
+        <div class="feature"><strong>收藏</strong><span>把常用跟練影片加入最愛</span></div>
+        <div class="feature"><strong>整理</strong><span>支援 JSON 匯出與匯入管理</span></div>
+      </section>
+      <div class="cta">留言「跟著慢跑資料庫」，我就將網頁提供給您。</div>
+    </main>
+  </body>
+</html>
